@@ -2,22 +2,12 @@
 
 session_start();
 
-if (!isset($_GET["controlador"])) {
-    $_GET["controlador"] = constant("DEFAULT_CONTROLLER");
+print_r($_SESSION);
+
+if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+    header("Location: ../view/home.php");
+} else {
+    header("Location: login.php");
 }
-
-// Si no hay acción en la URL, se usa la acción por defecto
-if (!isset($_GET["action"])) {
-    $_GET["action"] = constant("DEFAULT_ACTION");
-}
-
-// Se crea el nombre del controlador
-$controller = $_GET["controlador"] . "Controller";
-
-// Se crea el nombre del archivo que contiene el controlador
-
-$controllerFile = "src/php/controller/" . $controller . ".php";
-
-
 
 ?>

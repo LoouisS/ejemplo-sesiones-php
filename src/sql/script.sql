@@ -14,7 +14,7 @@ CREATE TABLE Usuarios (
 CREATE TABLE Administrador (
     idAdministrador TINYINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     correo VARCHAR(100) NOT NULL,
-    password_hash VARCHAR(255) NOT NULL
+    password VARCHAR(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- Insertamos cinco usuarios
@@ -27,5 +27,5 @@ VALUES ('correo1@gmail.com', 'password1', 'nombre1', 'juego1'),
        ('correo5@gmail.com', 'password5', 'nombre5', 'juego5');
 
 
-INSERT INTO Administrador (idUsuario, password_hash)
+INSERT INTO Administrador (correo, password)
 VALUES ('administrador@gmail.com', 'password1');
