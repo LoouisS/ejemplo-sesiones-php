@@ -24,14 +24,12 @@ require getcwd() . "/" . $ruta_controlador;
 $nombre_controlador = $_GET["controlador"] . "Controller";
 $controlador = new $nombre_controlador();
 
-$datos["datos"] = array();
-if (method_exists($controlador, $_GET["action"])) {
-    $datos["datos"] = $controlador->{$_GET["action"]}();
-}
 
-if ($_GET["action"] == constant("DEFAULT_ACTION")) {
-    require_once getcwd() . "/src/php/view/" . $controlador->vista . ".php";
-} else {
-    require_once getcwd() . "/src/php/view/vista_" . $controlador->vista . ".php";
-}
+
+$datos["datos"] = $controlador->{$_GET["action"]}();
+
+
+
+
+
 ?>

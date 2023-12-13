@@ -7,8 +7,8 @@
 <body>
 <div class="box">
     <span class="borderLine"></span>
-    <form method="post" action="index.php?controller=login&action=altaSubAdmin">
-        <h2>Alta administrador</h2>
+    <form method="post" action="index.php?controller=login&action=altaSuperAdmin">
+        <h2>Creacion Super Admin</h2>
         <div class="inputBox">
         <input type="text" name="correo" required="required">
         <span>Correo</span>
@@ -19,15 +19,7 @@
         <span>Password</span>
         <i></i>
         </div>
-        <div class="inputBox">
-            <select name="password" required="required">
-                <option value="">Select minigame</option>
-                <option value="password1">Minigame 1</option>
-                <option value="password2">Minigame 2</option>
-                <option value="password3">Minigame 3</option>
-            </select>
-        </div>
-        <input type="submit" value="Crear Administrador">
+        <input type="submit" value="Login">
     </form>
     </div>
     </div>

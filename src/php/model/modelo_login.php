@@ -1,35 +1,82 @@
 <?php
+    require_once getcwd() . '/src/php/config/db.php';
+    
+    class ModeloLogin {
+        private $conexion;
+    
+        function __construct() {
+            $this->conexion = $this->conexion();
+        }
+    
+        public function conexion() {
+            $this->conexion = new mysqli(HOST, USER, PASSWORD, DATABASE);
+            $this->conexion->set_charset('utf8');
+    
+            return $this->conexion;
+        }
 
-require_once getcwd() . '/src/php/config/db.php';
+        public function login($correo, $password) {
+            $sql = "SELECT * FROM usuarios WHERE correo = ?";
 
-class ModeloLogin {
-    private $conexion;
+            $stmt = $this->conexion->prepare($sql);
+            $stmt->bind_param("s", $correo);
+            $stmt->execute();
+            $resultado = $stmt->get_result();
+            $stmt->close();
+        
+            if ($resultado !== false && $resultado->num_rows > 0) {
 
-    function __construct() {
-        $this->conexion = $this->conexion();
-    }
+                $row = $resultado->fetch_assoc();
+                $storedHashedPassword = $row['password_hash'];
 
-    public function conexion() {
-        $this->conexion = new mysqli(HOST, USER, PASSWORD, DATABASE);
-        $this->conexion->set_charset('utf8');
+                echo "<br>";
+                echo $storedHashedPassword;
+                echo "<br>";
+                echo $password;
+                // Muestra el resultado de password verify
+                echo "<br>";
+                echo password_verify($password, $storedHashedPassword);
+                sdfsdf;
 
-        return $this->conexion;
-    }
+        
+                // Check if the password provided matches the stored hash
+                if (password_verify($password, $storedHashedPassword)) {
+                    // Passwords match, user is authenticated
+                    // Return user data
+                    return $row;
+                } else {
+                    // Passwords do not match
+                    return false;
+                }
+            } else {
+                // No matching user found
+                return false;
+            }
+        }
+        
 
-    public function login($correo, $password) {
-        $sql = "SELECT * FROM usuarios WHERE correo = ? AND password_hash = ?";
-        $stmt = $this->conexion->prepare($sql);
-        $stmt->bind_param("ss", $correo, $password);
-        $stmt->execute();
+        public function comprobarSuperAdmin() {
+            $sql = "SELECT * FROM usuarios WHERE perfil = 'a'";
+            $resultado = $this->conexion->query($sql);
+            return $resultado;
+        }
 
-        $result = $stmt->get_result();
+        public function crearSuperAdmin($correo, $password) {
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+            $sql = "INSERT INTO Usuarios (correo, password_hash, perfil) VALUES (?, ?, 'a')";
+            $stmt = $this->conexion->prepare($sql);
+            $stmt->bind_param("ss", $correo, $hashedPassword);
+            $stmt->execute();
+            $stmt->close();
+        }
 
-        if ($result->num_rows > 0) {
-            return $result->fetch_assoc(); 
-        } else {
-            return null; 
+        public function crearAdmin($correo, $password) {
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+            $sql = "INSERT INTO Usuarios (correo, password_hash, perfil) VALUES (?, ?, 'b')";
+            $stmt = $this->conexion->prepare($sql);
+            $stmt->bind_param("ss", $correo, $hashedPassword);
+            $stmt->execute();
+            $stmt->close();
         }
     }
-
-
-}
+?>
