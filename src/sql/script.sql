@@ -29,3 +29,6 @@ VALUES ('correo1@gmail.com', 'password1', 'nombre1', 'juego1'),
 
 INSERT INTO Administrador (correo, password)
 VALUES ('administrador@gmail.com', 'password1');
+
+INSERT INTO Usuarios (correo, password_hash, nombre, perfil)
+VALUES ('admin@admin.com', 'password1', 'admin', 'admin');
