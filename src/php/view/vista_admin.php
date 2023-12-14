@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html>
 <?php include 'template/header.php'; ?>
-<head>
-    <link rel="stylesheet" href="../../css/style.css">
-</head>
 <body>
 <div class="box">
     <span class="borderLine"></span>
@@ -20,15 +17,16 @@
         <i></i>
         </div>
         <div class="inputBox">
-            <select name="password" required="required">
-                <option value="">Select minigame</option>
-                <option value="password1">Minigame 1</option>
-                <option value="password2">Minigame 2</option>
-                <option value="password3">Minigame 3</option>
-            </select>
+        <?php
+            // Crea un select option con los minijuegos que no tienen subadministrador
+            echo '<select name="minijuego">';
+            foreach ($_SESSION['minijuegos'] as $minijuego) {
+                echo '<option value="' . $minijuego['idMinijuego'] . '">' . $minijuego['nombre'] . '</option>';
+            }
+        ?>
         </div>
-        <input type="submit" value="Crear Administrador">
+        <input type="submit" value="Alta">
     </form>
     </div>
     </div>
-<?php include 'template/header.php'; ?>
+    <?php include 'template/footer.php'; ?>

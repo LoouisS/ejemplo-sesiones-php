@@ -2,20 +2,22 @@
 
 CREATE TABLE Usuarios (
     idUsuario TINYINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    correo VARCHAR(100) NOT NULL,
+    correo VARCHAR(100) NOT NULL UNIQUE,
     password_hash VARCHAR(255) NOT NULL,
-    nombre VARCHAR(100) NOT NULL,
     perfil VARCHAR(100) NOT NULL
-)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 CREATE TABLE Minijuegos (
     idMinijuego TINYINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
     descripcion VARCHAR(255) NOT NULL,
     vista VARCHAR(100) NOT NULL,
-    subadministrador_id TINYINT UNSIGNED,
-    FOREIGN KEY (subadministrador_id) REFERENCES Usuarios(idUsuario)
+    subadministrador_id TINYINT UNSIGNED
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+ALTER TABLE Minijuegos
+ADD CONSTRAINT FK_Minijuegos_Usuarios
+FOREIGN KEY (subadministrador_id) REFERENCES Usuarios(idUsuario);
 
 -- Insertamos cinco usuarios
 
@@ -28,7 +30,7 @@ VALUES ('admin@admin.com', 'admin', 'admin', 'a'),
 
 -- Insertamos cinco minijuegos
 
-INSERT INTO Minijuegos (nombre, descripcion, vista, subadministrador_id)
+INSERT INTO Minijuegos (nombre, descripcion, vista)
 VALUES ('Minijuego1', 'Descripcion1', 'juego1'),
        ('Minijuego2', 'Descripcion2', 'juego2'),
        ('Minijuego3', 'Descripcion3', 'juego3'),

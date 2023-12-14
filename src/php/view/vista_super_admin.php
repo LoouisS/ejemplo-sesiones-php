@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html>
 <?php include 'template/header.php'; ?>
-<head>
-    <link rel="stylesheet" href="../../css/style.css">
-</head>
 <body>
 <div class="box">
     <span class="borderLine"></span>
@@ -23,4 +20,4 @@
     </form>
     </div>
     </div>
-<?php include 'template/header.php'; ?>
+<?php include 'template/footer.php'; ?>
