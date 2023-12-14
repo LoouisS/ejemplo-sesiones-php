@@ -28,8 +28,7 @@ class LoginController {
     public function login() {
         $correo = $_POST['correo'];
         $password = $_POST['password'];
-        echo $correo;
-        echo $password;
+
         $resultado = $this->modelo->login($correo, $password);    
         if ($resultado !== false) {
             $perfil = $resultado['perfil'];

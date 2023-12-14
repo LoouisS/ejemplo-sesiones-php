@@ -28,8 +28,7 @@ $controlador = new $nombre_controlador();
 
 $datos["datos"] = $controlador->{$_GET["action"]}();
 
-
-
+session_destroy();
 
 
 ?>

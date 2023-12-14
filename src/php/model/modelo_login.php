@@ -28,21 +28,14 @@
 
                 $row = $resultado->fetch_assoc();
                 $storedHashedPassword = $row['password_hash'];
+                $inputHashedPassword = hash('sha256', $password);
 
-                echo "<br>";
-                echo $storedHashedPassword;
-                echo "<br>";
-                echo $password;
-                // Muestra el resultado de password verify
-                echo "<br>";
-                echo password_verify($password, $storedHashedPassword);
-                sdfsdf;
-
-        
-                // Check if the password provided matches the stored hash
-                if (password_verify($password, $storedHashedPassword)) {
-                    // Passwords match, user is authenticated
-                    // Return user data
+                // echo $storedHashedPassword;
+                // echo "<br>";
+                // echo $inputHashedPassword;
+                // echo "<br>";
+                // fkjsdfsd;
+                if ($inputHashedPassword === $storedHashedPassword) {   
                     return $row;
                 } else {
                     // Passwords do not match
@@ -62,7 +55,7 @@
         }
 
         public function crearSuperAdmin($correo, $password) {
-            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+            $hashedPassword = hash('sha256', $password);
             $sql = "INSERT INTO Usuarios (correo, password_hash, perfil) VALUES (?, ?, 'a')";
             $stmt = $this->conexion->prepare($sql);
             $stmt->bind_param("ss", $correo, $hashedPassword);
@@ -71,7 +64,7 @@
         }
 
         public function crearAdmin($correo, $password) {
-            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+            $hashedPassword = hash('sha256', $password);
             $sql = "INSERT INTO Usuarios (correo, password_hash, perfil) VALUES (?, ?, 'b')";
             $stmt = $this->conexion->prepare($sql);
             $stmt->bind_param("ss", $correo, $hashedPassword);
